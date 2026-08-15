@@ -184,7 +184,7 @@ jobs:
           BASE_REF: ${{ github.base_ref }}
         run: |
           set -u
-          contract=".control/control/tasks/specifications/${TASK_ID}.yaml"
+          contract="control/tasks/specifications/${TASK_ID}.yaml"
           if [ ! -f "$contract" ]; then
             echo "::error::contract $contract tidak ditemukan di control repo"
             exit 1
