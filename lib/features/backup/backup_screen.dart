@@ -4,6 +4,7 @@ import '../../core/device/uuid_service.dart';
 import '../../core/network/api_client.dart';
 import '../../core/widgets/error_view.dart';
 import 'backup_service.dart';
+import 'date_range_bottomsheet.dart';
 import 'transaction_store.dart';
 
 /// Halaman backup: menampilkan ukuran storage lokal, tombol 'backup data'
@@ -52,7 +53,6 @@ class _BackupScreenState extends State<BackupScreen> {
   }
 
   Future<void> _pickRangeAndBackup() async {
-    final now = DateTime.now();
     await showModalBottomSheet<void>(
       context: context,
       builder: (context) => DateRangeBottomSheet(
@@ -131,16 +131,17 @@ class _BackupScreenState extends State<BackupScreen> {
       _showError('Format UUID tidak valid. Gunakan format UUID v4.');
       return;
     }
-    final now = DateTime.now();
     await showModalBottomSheet<void>(
       context: context,
       builder: (context) => DateRangeBottomSheet(
         onConfirm: (start, end) {
-          _runRestoreRange(start: start, end: end, userId: userId);
+          _runRestoreRange(userId: userId, from: start, to: end);
         },
       ),
     );
+  }
 
+  Future<void> _runRestoreRange({required String userId, required DateTime from, required DateTime to}) async {
     setState(() {
       _loading = true;
       _error = null;
