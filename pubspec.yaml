@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   # HTTP client for integration with the POS backend.
   http: ^1.5.0
+  # Key-value persistence (first-run UUID storage).
+  shared_preferences: ^2.3.0
+  # Access to app-local storage (backup data + storage usage).
+  path_provider: ^2.1.0
 
 dev_dependencies:
   flutter_test:
