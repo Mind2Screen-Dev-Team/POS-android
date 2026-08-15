@@ -53,23 +53,14 @@ class _BackupScreenState extends State<BackupScreen> {
 
   Future<void> _pickRangeAndBackup() async {
     final now = DateTime.now();
-    final from = await showDatePicker(
+    await showModalBottomSheet<void>(
       context: context,
-      initialDate: now.subtract(const Duration(days: 30)),
-      firstDate: DateTime(2020),
-      lastDate: now,
-      helpText: 'Pilih tanggal awal',
+      builder: (context) => DateRangeBottomSheet(
+        onConfirm: (start, end) {
+          _runBackup(from: start, to: end);
+        },
+      ),
     );
-    if (from == null || !mounted) return;
-    final to = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: from,
-      lastDate: now,
-      helpText: 'Pilih tanggal akhir',
-    );
-    if (to == null || !mounted) return;
-    await _runBackup(from: from, to: to);
   }
 
   Future<void> _runBackup({DateTime? from, DateTime? to}) async {
@@ -141,22 +132,14 @@ class _BackupScreenState extends State<BackupScreen> {
       return;
     }
     final now = DateTime.now();
-    final from = await showDatePicker(
+    await showModalBottomSheet<void>(
       context: context,
-      initialDate: now.subtract(const Duration(days: 30)),
-      firstDate: DateTime(2020),
-      lastDate: now,
-      helpText: 'Pilih tanggal awal',
+      builder: (context) => DateRangeBottomSheet(
+        onConfirm: (start, end) {
+          _runRestoreRange(start: start, end: end, userId: userId);
+        },
+      ),
     );
-    if (from == null || !mounted) return;
-    final to = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: from,
-      lastDate: now,
-      helpText: 'Pilih tanggal akhir',
-    );
-    if (to == null || !mounted) return;
 
     setState(() {
       _loading = true;
