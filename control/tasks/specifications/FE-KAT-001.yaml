@@ -1,0 +1,61 @@
+# FE-KAT-001 — Task Contract: Flutter Katalog List
+
+schema_version: "1.0"
+
+task:
+  id: FE-KAT-001
+  title: "Tampilan daftar katalog produk di Flutter Android"
+  type: frontend-implementation
+  project: pos-katalog
+  status: technical-ready
+  requirement_ids:
+    - REQ-POS-KAT-005
+    - REQ-POS-KAT-006
+  business_rule_ids:
+    - BL-FE-KAT-001
+  contract_ids:
+    - CONTRACT-KAT-001
+
+ownership:
+  role: android-developer
+  repository: POS-android
+  base_branch: develop
+  branch: agent/FE-KAT-001-flutter-katalog-list
+
+execution:
+  isolation: worktree
+  background: true
+  max_turns: 100
+  timeout_minutes: 60
+
+paths:
+  allowed:
+    - lib/**
+    - test/**
+    - pubspec.yaml
+  forbidden:
+    - .claude/**
+    - .task/**
+
+inputs:
+  - control/tasks/specifications/CONTRACT-KAT-001.yaml
+
+acceptance_criteria:
+  - "ListView menampilkan produk dengan foto, nama, harga jual, stok"
+  - "Empty state muncul saat tidak ada produk (teks 'Tidak ada produk')"
+  - "Pull-to-refresh untuk refresh data dari API"
+  - "Item tap membuka detail produk (navigasi ke halaman detail)"
+  - "Unit test: widget renders, empty state, refresh indicator"
+
+quality_gates:
+  - flutter analyze
+  - flutter test
+
+outputs:
+  - code
+  - unit-tests
+  - pull-request
+
+stop_conditions:
+  - contract change required
+  - dependency required
