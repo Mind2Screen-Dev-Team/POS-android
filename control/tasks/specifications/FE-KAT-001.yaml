@@ -33,6 +33,7 @@ paths:
     - lib/**
     - test/**
     - pubspec.yaml
+    - control/**
   forbidden:
     - .claude/**
     - .task/**
