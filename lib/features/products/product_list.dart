@@ -9,10 +9,17 @@ class ProductList extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Products'),
         actions: [
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // TODO: Show search dialog
+            },
+          ),
         ],
       ),
-      body: const Center(child: CircularProgressIndicator()),
+      body: const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }
